@@ -2,10 +2,12 @@ import os
 from datetime import timedelta
 from pathlib import Path
 import dj_database_url
+import sys
 
 
 # Base directory
 BASE_DIR = Path(__file__).resolve().parent.parent
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 # Secret key (để đơn giản, bạn nên tự tạo mới khi deploy)
 SECRET_KEY = "django-insecure-your-secret-key"
