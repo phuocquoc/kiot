@@ -4,9 +4,15 @@ from pathlib import Path
 import dj_database_url
 import sys
 
+import os
+from pathlib import Path
 
-# Base directory
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 # Secret key (để đơn giản, bạn nên tự tạo mới khi deploy)
 SECRET_KEY = "django-insecure-your-secret-key"
@@ -34,6 +40,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -119,5 +126,7 @@ CSRF_TRUSTED_ORIGINS = [
     'http://192.168.1.7:8000',  # Thay IP bằng IP LAN máy bạn
 ]
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
