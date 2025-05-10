@@ -18,7 +18,7 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 SECRET_KEY = "django-insecure-your-secret-key"
 
 # Debug bật lên cho local
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["127.0.0.1", "localhost", "quanli-a392d0279e04.herokuapp.com"]
 
