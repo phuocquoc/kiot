@@ -1,1 +1,1 @@
-web: gunicorn kiot.wsgi:application
+web: gunicorn wsgi:application
