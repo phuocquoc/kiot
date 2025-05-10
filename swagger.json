@@ -1,0 +1,102 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "KiotViet Clone API",
+      "version": "1.0.0"
+    },
+    "paths": {
+      "/api/products/": {
+        "get": {
+          "summary": "Danh sách sản phẩm",
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        },
+        "post": {
+          "summary": "Tạo sản phẩm mới",
+          "responses": {
+            "201": {
+              "description": "Created"
+            }
+          }
+        }
+      },
+      "/api/customers/": {
+        "get": {
+          "summary": "Danh sách khách hàng",
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        },
+        "post": {
+          "summary": "Tạo khách hàng mới",
+          "responses": {
+            "201": {
+              "description": "Created"
+            }
+          }
+        }
+      },
+      "/api/invoices/": {
+        "get": {
+          "summary": "Danh sách hóa đơn",
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        },
+        "post": {
+          "summary": "Tạo hóa đơn mới",
+          "responses": {
+            "201": {
+              "description": "Created"
+            }
+          }
+        }
+      },
+      "/api/stocks/": {
+        "get": {
+          "summary": "Xem lịch sử kho",
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        },
+        "post": {
+          "summary": "Nhập kho / Xuất kho",
+          "responses": {
+            "201": {
+              "description": "Created"
+            }
+          }
+        }
+      },
+      "/api/token/": {
+        "post": {
+          "summary": "Lấy access token",
+          "responses": {
+            "200": {
+              "description": "Token trả về"
+            }
+          }
+        }
+      },
+      "/api/token/refresh/": {
+        "post": {
+          "summary": "Refresh token",
+          "responses": {
+            "200": {
+              "description": "Token mới"
+            }
+          }
+        }
+      }
+    }
+  }
+  
