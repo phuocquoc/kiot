@@ -20,7 +20,7 @@ SECRET_KEY = "django-insecure-your-secret-key"
 # Debug bật lên cho local
 DEBUG = False
 
-ALLOWED_HOSTS = ["http://127.0.0.1:8000","https://quanli-a392d0279e04.herokuapp.com"]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "quanli-a392d0279e04.herokuapp.com"]
 
 # Installed apps
 INSTALLED_APPS = [
@@ -130,7 +130,9 @@ SECURE_HSTS_PRELOAD = True
 
 SESSION_COOKIE_SECURE = True  # Chỉ gửi cookie qua HTTPS
 CSRF_COOKIE_SECURE = True     # Chỉ gửi cookie CSRF qua HTTPS
-CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1:8000","https://quanli-a392d0279e04.herokuapp.com"]
-
+CSRF_TRUSTED_ORIGINS = [
+    "http://127.0.0.1:8000",
+    "https://quanli-a392d0279e04.herokuapp.com"
+]
 SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
 SECURE_SSL_REDIRECT = True
