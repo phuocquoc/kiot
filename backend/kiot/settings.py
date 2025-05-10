@@ -63,9 +63,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "kiot.wsgi.application"
 
-# Database
+
 DATABASES = {
-    'default': "postgresql://postgres.xlenlfgqsqqsvhasbfcr:6r&z#@9_krCsAhv@aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres"
+    'default': dj_database_url.config(
+        default="postgres://postgres.xlenlfgqsqqsvhasbfcr:bKUb9QaNqFz08ZOh@aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres"
+    )
 }
 
 # Password validation
