@@ -120,7 +120,3 @@ SESSION_COOKIE_DOMAIN = '192.168.1.7'
 CSRF_TRUSTED_ORIGINS = [
     'http://192.168.1.7:8000',  # Thay IP bằng IP LAN máy bạn
 ]
-
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / "static"]
-STATIC_ROOT = BASE_DIR / "staticfiles"
