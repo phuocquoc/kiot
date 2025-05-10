@@ -7,7 +7,6 @@ import sys
 
 # Base directory
 BASE_DIR = Path(__file__).resolve().parent.parent
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 # Secret key (để đơn giản, bạn nên tự tạo mới khi deploy)
 SECRET_KEY = "django-insecure-your-secret-key"
@@ -123,5 +122,5 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / "static"]
+STATICFILES_DIRS = [BASE_DIR / "backend/static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
