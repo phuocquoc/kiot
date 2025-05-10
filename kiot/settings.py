@@ -18,9 +18,9 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 SECRET_KEY = "django-insecure-your-secret-key"
 
 # Debug bật lên cho local
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["http://127.0.0.1:8000","https://quanli-a392d0279e04.herokuapp.com"]
 
 # Installed apps
 INSTALLED_APPS = [
@@ -40,9 +40,9 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     "corsheaders.middleware.CorsMiddleware",
-    "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -120,13 +120,17 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 AUTH_USER_MODEL = "user.User"
 
-SESSION_COOKIE_DOMAIN = '192.168.1.7'
-
-CSRF_TRUSTED_ORIGINS = [
-    'http://192.168.1.7:8000',  # Thay IP bằng IP LAN máy bạn
-]
-
-
-
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+SECURE_HSTS_SECONDS = 31536000  # 1 year
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+
+
+SESSION_COOKIE_SECURE = True  # Chỉ gửi cookie qua HTTPS
+CSRF_COOKIE_SECURE = True     # Chỉ gửi cookie CSRF qua HTTPS
+CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1:8000","https://quanli-a392d0279e04.herokuapp.com"]
+
+SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
+SECURE_SSL_REDIRECT = True
