@@ -65,7 +65,7 @@ WSGI_APPLICATION = "kiot.wsgi.application"
 
 # Database
 DATABASES = {
-    'default': dj_database_url.config(default='your-database-url')
+    'default': "postgresql://postgres.xlenlfgqsqqsvhasbfcr:6r&z#@9_krCsAhv@aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres"
 }
 
 # Password validation
