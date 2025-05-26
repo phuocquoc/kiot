@@ -74,7 +74,7 @@ WSGI_APPLICATION = "kiot.wsgi.application"
 
 DATABASES = {
     'default': dj_database_url.config(
-        default="postgres://postgres.xlenlfgqsqqsvhasbfcr:bKUb9QaNqFz08ZOh@aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres"
+        default="postgresql://postgres:SrzYSoewKFQPPjdGsdZJComGbndbrdYz@hopper.proxy.rlwy.net:18620/railway"
     )
 }
 
