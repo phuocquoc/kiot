@@ -1,0 +1,36 @@
+{
+    "name": "kiotviet-clone-frontend",
+    "version": "1.0.0",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "build tal": "npx tailwindcss -i ./static/input.css -o ./static/output.css --minify",
+        "preview": "vite preview",
+        "build web": "vite build && node postbuild.js"
+    },
+    "dependencies": {
+        "axios": "^1.6.5",
+        "daisyui": "^5.0.28",
+        "dotenv": "^16.5.0",
+        "element-plus": "^2.9.8",
+        "html2pdf.js": "^0.10.3",
+        "jsbarcode": "^3.11.6",
+        "lint": "^0.8.19",
+        "vue": "^3.3.4",
+        "vue-router": "^4.2.4"
+    },
+    "devDependencies": {
+        "@eslint/js": "^9.25.1",
+        "@vitejs/plugin-vue": "^5.2.3",
+        "autoprefixer": "^10.4.14",
+        "eslint": "^9.25.1",
+        "eslint-plugin-vue": "^10.0.0",
+        "globals": "^16.0.0",
+        "postcss": "^8.4.24",
+        "tailwindcss": "^3.4.1",
+        "vite": "^6.3.3",
+        "webpack": "^5.99.7",
+        "webpack-cli": "^6.0.1",
+        "webpack-dev-server": "^5.2.1"
+    }
+}

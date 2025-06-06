@@ -17,7 +17,7 @@ router.register(r"invoices", InvoiceViewSet)
 router.register(r"stocks", StockHistoryViewSet)
 
 urlpatterns = [
-    path('', lambda request: render(request, "index.html")),
+    # path('', lambda request: render(request, "index.html")),
     path("admin/", admin.site.urls),
     path("api/", include(router.urls)),  # Gọi API routes
     path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),

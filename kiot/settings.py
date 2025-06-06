@@ -1,58 +1,78 @@
 import os
+from pathlib import Path
+import environ
 from datetime import timedelta
-from pathlib import Path
-import dj_database_url
-import sys
 
-import os
-from pathlib import Path
 
+# Khởi tạo đối tượng `env` để đọc biến môi trường
+env = environ.Env()
+
+# Đọc file .env (nếu có)
+environ.Env.read_env(os.path.join(Path(__file__).resolve().parent.parent, '.env'))
+
+# Khai báo thư mục gốc của dự án
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Cài đặt thông tin SECRET_KEY (bảo mật)
+SECRET_KEY = env("SECRET_KEY", default="django-insecure-your-secret-key")
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+# Cài đặt Debug (dành cho môi trường phát triển)
+DEBUG = env.bool("DEBUG", default=True)
 
-# Secret key (để đơn giản, bạn nên tự tạo mới khi deploy)
-SECRET_KEY = "django-insecure-your-secret-key"
+# Danh sách các host được phép
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["127.0.0.1", "localhost"])
 
-# Debug bật lên cho local
-DEBUG = False
+# Cài đặt cơ sở dữ liệu
+# Kiểm tra nếu môi trường là production, sử dụng PostgreSQL. Nếu không, sử dụng SQLite.
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost", "quanli-a392d0279e04.herokuapp.com"]
+if env("DJANGO_ENV", default="development") == "production":
+    # Sử dụng PostgreSQL khi triển khai lên production
+    DATABASES = {
+        'default': env.db()  # Lấy thông tin từ DATABASE_URL trong file .env
+    }
+else:
+    # Sử dụng SQLite khi phát triển trên localhost
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',  # Đường dẫn tới file db.sqlite3
+        }
+    }
 
-# Installed apps
+# Cài đặt các ứng dụng đã cài đặt trong Django
 INSTALLED_APPS = [
-    "django.contrib.admin",
-    "django.contrib.auth",
-    "django.contrib.contenttypes",
-    "django.contrib.sessions",
-    "django.contrib.messages",
-    "django.contrib.staticfiles",
-    "rest_framework",
-    "corsheaders",
-    "customer",  # App api chính
-    "invoice",
-    "product",
-    "stock",
-    "user",
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'rest_framework',
+    'corsheaders',
+    'customer',  # App api chính
+    'invoice',
+    'product',
+    'stock',
+    'user',
 ]
 
+# Cài đặt các middleware
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
-    "corsheaders.middleware.CorsMiddleware",
-    "django.contrib.sessions.middleware.SessionMiddleware",
-    "django.middleware.common.CommonMiddleware",
-    "django.middleware.csrf.CsrfViewMiddleware",
-    "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "django.contrib.messages.middleware.MessageMiddleware",
-    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'corsheaders.middleware.CorsMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# Cấu hình thông tin URL của project
 ROOT_URLCONF = "kiot.urls"
 
+# Cài đặt templates
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
@@ -69,16 +89,10 @@ TEMPLATES = [
     },
 ]
 
+# WSGI Application
 WSGI_APPLICATION = "kiot.wsgi.application"
 
-
-DATABASES = {
-    'default': dj_database_url.config(
-        default="postgresql://postgres:SrzYSoewKFQPPjdGsdZJComGbndbrdYz@hopper.proxy.rlwy.net:18620/railway"
-    )
-}
-
-# Password validation
+# Khai báo các trình xác thực mật khẩu
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
@@ -88,51 +102,58 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# Internationalization
+# Cài đặt internationalization
 LANGUAGE_CODE = "en-us"
 TIME_ZONE = "Asia/Ho_Chi_Minh"
 USE_I18N = True
 USE_TZ = True
 
-# Static files
-# Default auto field
-DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+# Static files (CSS, JavaScript, images)
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_DIRS = [BASE_DIR / 'static']
 
-# Custom user model (nếu dùng sau này)
-# AUTH_USER_MODEL = 'users.User'
+# Đường dẫn đến thư mục Media (nếu có)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
-# Django REST Framework Settings
-REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": (
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
-    )
-}
+# Các cài đặt bảo mật
+CSRF_TRUSTED_ORIGINS = [
+    "http://127.0.0.1:8000",
+    "https://quanli-a392d0279e04.herokuapp.com",
+]
 
-# JWT Settings
+# Chế độ CORS (cho phép tất cả trong môi trường phát triển)
+CORS_ALLOW_ALL_ORIGINS = True
+
+# Cấu hình JWT
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
 }
 
-# CORS Settings
-CORS_ALLOW_ALL_ORIGINS = True
+# Sử dụng file .env để lưu các biến môi trường
+SECRET_KEY = env("SECRET_KEY", default="django-insecure-your-secret-key")
+DEBUG = env.bool("DEBUG", default=True)
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["127.0.0.1", "localhost"])
 
 
-AUTH_USER_MODEL = "user.User"
 
-
+# Cấu hình Staticfiles Storage (WhiteNoise cho phép phục vụ static files)
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-SECURE_HSTS_SECONDS = 31536000  # 1 year
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SECURE_HSTS_PRELOAD = True
+# Cấu hình SASS/SCSS hoặc TailwindCSS nếu sử dụng
+TAILWIND_APP_NAME = 'theme'
 
+# Cài đặt ứng dụng gửi email
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # Thay đổi khi triển khai
 
-SESSION_COOKIE_SECURE = True  # Chỉ gửi cookie qua HTTPS
-CSRF_COOKIE_SECURE = True     # Chỉ gửi cookie CSRF qua HTTPS
-CSRF_TRUSTED_ORIGINS = [
-    "http://127.0.0.1:8000",
-    "https://quanli-a392d0279e04.herokuapp.com"
-]
-SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
-SECURE_SSL_REDIRECT = True
+# Đảm bảo rằng Django biết về môi trường mà ứng dụng đang chạy
+if env("DJANGO_ENV", default="development") == "development":
+    print("App đang chạy ở môi trường development")
+else:
+    print("App đang chạy ở môi trường production")
+
+AUTH_USER_MODEL = 'user.User'
+
+CORS_ALLOW_ALL_ORIGINS = True
