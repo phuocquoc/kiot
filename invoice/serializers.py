@@ -25,7 +25,7 @@ class InvoiceItemSerializer(serializers.ModelSerializer):
 
 class InvoiceSerializer(serializers.ModelSerializer):
     customer = serializers.PrimaryKeyRelatedField(queryset=Customer.objects.all(), allow_null=True, required=False)
-    staff = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), allow_null=True, required=False)
+    staff = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
     items = InvoiceItemSerializer(many=True)
 
     class Meta:

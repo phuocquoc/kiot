@@ -11,7 +11,8 @@
           <el-input v-model="productForm.name" />
         </el-form-item>
         <el-form-item label="Giá">
-          <el-input v-model="productForm.price" :formatter="currencyFormatter" :parser="currencyParser" type="text" />
+          <el-input v-model="productForm.price" :formatter="currencyFormatter" :parser="currencyParser" type="text" >
+          </el-input>
         </el-form-item>
         <el-form-item label="Size">
           <el-select v-model="productForm.size" placeholder="Chọn hoặc nhập size sản phẩm" clearable filterable
@@ -42,7 +43,11 @@
 
     <el-table :data="products" border style="width: 100%">
       <el-table-column prop="name" label="Tên sản phẩm" />
-      <el-table-column prop="price" label="Giá (đ)" />
+      <el-table-column label="Đơn giá (đ)">
+        <template #default="scope">
+          {{ scope.row.price.toLocaleString() }}
+        </template>
+      </el-table-column>
       <el-table-column prop="size" label="Size" />
       <el-table-column prop="stock_quantity" label="Tồn kho" />
       <el-table-column label="Hành động">

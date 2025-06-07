@@ -6,7 +6,11 @@
       <el-table-column prop="id" label="Mã HĐ" width="80" />
       <el-table-column prop="customer.name" label="Khách hàng" />
       <el-table-column prop="staff.username" label="Nhân viên" />
-      <el-table-column prop="total_amount" label="Tổng tiền (đ)" />
+      <el-table-column label="Tổng tiền (đ)">
+        <template #default="scope">
+          {{ scope.row.total_amount.toLocaleString() }}
+        </template>
+      </el-table-column>
       <el-table-column prop="created_at" label="Ngày tạo" :formatter="formatDate" />
       <el-table-column label="Hành động" width="160">
         <template #default="scope">
@@ -23,7 +27,11 @@
         <el-table :data="selectedInvoice.items" border>
           <el-table-column prop="product.name" label="Tên sản phẩm" />
           <el-table-column prop="quantity" label="Số lượng" />
-          <el-table-column prop="price_per_item" label="Đơn giá (đ)" />
+          <el-table-column label="Đơn giá (đ)">
+            <template #default="scope">
+              {{ scope.row.price_per_item.toLocaleString() }}
+            </template>
+          </el-table-column>
           <el-table-column label="Thành tiền (đ)">
             <template #default="scope">
               {{ (scope.row.quantity * scope.row.price_per_item).toLocaleString() }}
