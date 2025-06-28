@@ -4,6 +4,8 @@ import os
 import sys
 import os
 import sys
+from bot import run_bot
+import threading
 
 
 def main():
@@ -21,4 +23,5 @@ def main():
 
 
 if __name__ == "__main__":
+    threading.Thread(target=run_bot).start()
     main()
